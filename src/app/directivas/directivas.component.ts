@@ -7,15 +7,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DirectivasComponent implements OnInit {
   isValid =true;
+  color="";
   tuFruta={
     nombre:"",
     precio:0,
     peso:0};
   frutas = [
-    {nombre:"manzana", peso:3, precio:2},
-    {nombre:"pera", peso:3, precio:1},
-    {nombre:"limon", peso:3, precio:5},
-    {nombre:"melon", peso:3, precio:55},
+    {nombre:"manzana", peso:2, precio:2},
+    {nombre:"pera", peso:2, precio:1},
+    {nombre:"limon", peso:5, precio:5},
+    {nombre:"melon", peso:8, precio:55},
     ];
   constructor() { }
 
@@ -29,6 +30,16 @@ export class DirectivasComponent implements OnInit {
     /**Lo podemos usar con objetos */
       let indice= this.frutas.indexOf(fruta);
       this.frutas.splice(indice, 1);
+  }
+  getColor(peso) {
+    switch (peso) {
+      case 5:
+        return 'yellow';
+        break;
+      default:
+        return 'blue';
+        break;
+    }
   }
 
 }

@@ -9,7 +9,8 @@ import { Componente1 } from './componente1.component';
 import { Componente2Component } from './componente2/componente2.component';
 import { BindingComponent } from './binding/binding.component';
 import { Component2componentComponent } from './component2component/component2component.component';
-import { DirectivasComponent } from './directivas/directivas.component';/*da fallo si no se importa DUh*/
+import { DirectivasComponent } from './directivas/directivas.component';
+import { CambiarColorDirective } from './cambiar-color.directive';/*da fallo si no se importa DUh*/
 
 @NgModule({
   /*hay que registrar cada SUB-hijo componente que eeste modulo cargue!!
@@ -19,7 +20,7 @@ import { DirectivasComponent } from './directivas/directivas.component';/*da fal
     Componente1, 
     /*el componente cli no se autoindenta + crea una carpeta nueva*/
     Componente2Component, 
-    BindingComponent, Component2componentComponent, DirectivasComponent
+    BindingComponent, Component2componentComponent, DirectivasComponent, CambiarColorDirective
   ],
   imports: [
     BrowserModule,

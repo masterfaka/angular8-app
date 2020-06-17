@@ -1,3 +1,11 @@
+<style>
+    .clase1{
+        color:aqua;
+        background-color: blue;
+        display:inline;
+    }
+
+</style>
 <h3>ngIf</h3>
 <p *ngIf="isValid">directivas works!</p>
 <p *ngIf="!isValid">directivas NO works!</p>
@@ -53,7 +61,7 @@ Elije color lista:
 class="btn btn-warning">__ </button><br>
 <ul *ngFor="let fruta of frutas" 
     [ngSwitch]="colorLista.value"
-class="d-inline-flex flex-row">
+class="d-inline-flex ">
     <li *ngSwitchDefault 
     class="list-group-item "
     >
@@ -83,4 +91,31 @@ class="d-inline-flex flex-row">
     </p>
     </li>
 </ul>
+
 <p>Tambien se podria pintar un cada caso en funcion de alguna de l as propiedades de lista del objeto</p>
+<h3>[ngStyle]</h3>
+<p>pintado condicional color segun fruta.peso mayor que 5</p>
+<ul *ngFor="let fruta of frutas"  
+    class="list-unstyled d-inline-flex"
+>
+    <li [ngStyle]="{ 'color': getColor(fruta.peso), 'backgroundColor':'lightgrey' }"
+        class="d-flex-row"
+    >| {{ fruta.nombre }} |</li>
+</ul> 
+<br>
+
+<h3 [ngClass]= "{ 'clase1': true }">[ngClass]</h3>
+<br>
+<hr>
+<br><em>
+asignamos a una variable de la vista(Padre)inicializada con el evento click el valor y 
+se lo pasamos con property binding a nuestra directiva para recuperar con @input </em><br>
+<p>   Selecciona color:</p>
+<input type="radio" name="colores" (click)="color='green'">verde|
+<input type="radio" name="colores" (click)="color='indigo'">indigo|
+<input type="radio" name="colores" (click)="color='pink'">pink|
+<div [appCambiarColor]= "color" >
+    <h3>directiva Personalizada al hover eligiendo color desde vista</h3>
+</div>
+<br>
+<hr>
