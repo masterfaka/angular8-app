@@ -1,0 +1,56 @@
+<h3>ngIf</h3>
+<p *ngIf="isValid">directivas works!</p>
+<p *ngIf="!isValid">directivas NO works!</p>
+
+<p *ngIf="2+2 == 4">condicion computada</p>
+<br/>
+<div *ngIf="frutas.length then siFrutas else noFrutas">
+</div>
+<ng-template #siFrutas >
+    Hay frutas: se mostrarar si hay frutas
+</ng-template>
+<ng-template #noFrutas>
+    no frutas Se muestra si array vacio
+</ng-template>
+<div >
+    lo mismo pero con la prop hidden.
+    es mejor if porque no carga en la pag; depende del numero de elementos en total
+</div>
+<ng-template [hidden]="frutas.length > 0">
+    Hay frutas: se mostrarar si hay frutas
+</ng-template>
+<ng-template [hidden]="frutas.length === 0">
+    no frutas Se muestra si array vacio
+</ng-template>
+<br>
+<h3>ngFor</h3>
+<p>Agrega fruta a la lista:</p>
+<button class="btn btn-secondary"
+    (click)="agregarFrutaRandom()">+Fruta Random</button><br>
+<p>
+    <input type="text"
+    size="15"
+    placeholder="Nombre tu fruta"
+    [(ngModel)]="tuFruta.nombre"/>
+    <input type="number"
+    size="5"
+    placeholder="peso tu fruta"
+    [(ngModel)]="tuFruta.peso"
+    />
+    <input type="number"
+    size="5"
+    placeholder="Coste tu fruta"
+    [(ngModel)]="tuFruta.precio"/>
+    <button class="btn btn-info">+Fruta </button>
+</p>
+lista:
+<ul class="d-inline-flex flex-row">
+    <li class="list-group-item"
+     *ngFor="let fruta of frutas">
+        <p> {{ fruta.nombre }}: {{fruta.precio}} € 
+            <button class="btn btn-danger"
+            (click)="quitarFrutaElegida(fruta)"
+            >-x- </button>
+        </p>
+    </li>
+</ul>
