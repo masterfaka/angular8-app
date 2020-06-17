@@ -7,7 +7,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';/*se refiere al componente.ts */
 import { Componente1 } from './componente1.component';
 import { Componente2Component } from './componente2/componente2.component';
-import { BindingComponent } from './binding/binding.component';/*da fallo si no se importa DUh*/
+import { BindingComponent } from './binding/binding.component';
+import { Component2componentComponent } from './component2component/component2component.component';/*da fallo si no se importa DUh*/
 
 @NgModule({
   /*hay que registrar cada SUB-hijo componente que eeste modulo cargue!!
@@ -17,7 +18,7 @@ import { BindingComponent } from './binding/binding.component';/*da fallo si no 
     Componente1, 
     /*el componente cli no se autoindenta + crea una carpeta nueva*/
     Componente2Component, 
-    BindingComponent
+    BindingComponent, Component2componentComponent
   ],
   imports: [
     BrowserModule,

@@ -340,6 +340,8 @@
  <!-- Componente a mano-->
   <componenteAMano></componenteAMano>
   <app-componente2></app-componente2>
+ 
+
   <!-- Next Steps -->
   <h2>Tutorial buttones</h2>
   <p>What do you want to do next with your app?</p>
@@ -399,6 +401,12 @@
   </svg>
 <hr>
 <app-binding></app-binding>
+<app-component2component [datoEnHijo]="datoEnPadre" 
+  (enviar)="getMessagePadre($event)">
+</app-component2component>
+{{ mensaje }}
+<hr><hr>
+
 </div>
 
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->

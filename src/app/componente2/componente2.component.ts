@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'app-componente2',
@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./componente2.component.sass']
 })
 export class Componente2Component implements OnInit {
+
+  /**decorador import para pasasr "props "de padre a hijo */
 
   constructor() { }
 

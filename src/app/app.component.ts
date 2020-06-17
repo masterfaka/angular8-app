@@ -16,4 +16,17 @@ export class AppComponent {
   //propiedad de la clase AppComponent
   title = 'Mi-angular-app';
   miMensaje= "corazón";
+  datoEnPadre={
+    uno:"dato1" ,
+    dos:"dato2"
+  };
+  /*Eventos y directiva @OUtput */
+  mensaje="";/*se inicializa vacio para que no pete */
+  getMessagePadre(e){
+    alert(e);
+    /*podemos disponer de esta info y mostrarla con string interpolation
+    en cuanto valga algo, si esta puesto en el html, se mostrara(nada mas termine el evento)
+    */
+   this.mensaje=e;
+  }
 }
