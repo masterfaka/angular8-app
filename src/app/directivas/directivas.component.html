@@ -43,14 +43,44 @@
     [(ngModel)]="tuFruta.precio"/>
     <button class="btn btn-info">+Fruta </button>
 </p>
-lista:
-<ul class="d-inline-flex flex-row">
-    <li class="list-group-item"
-     *ngFor="let fruta of frutas">
+Elije color lista:
+<input type="hidden" #colorLista>
+<button class="btn btn-success"
+    (click)="colorLista.value='verde'"
+>__ </button>
+<button 
+(click)="colorLista.value='amarillo'"
+class="btn btn-warning">__ </button><br>
+<ul *ngFor="let fruta of frutas" 
+    [ngSwitch]="colorLista.value"
+class="d-inline-flex flex-row">
+    <li *ngSwitchDefault 
+    class="list-group-item "
+    >
+    <p> {{ fruta.nombre }}: {{fruta.precio}} € 
+        <button class="btn btn-danger"
+        (click)="quitarFrutaElegida(fruta)"
+        >-x- </button>
+    </p>
+    </li>
+    <li 
+        *ngSwitchCase="'verde'" 
+        class="list-group-item bg-success"
+    >
         <p> {{ fruta.nombre }}: {{fruta.precio}} € 
             <button class="btn btn-danger"
             (click)="quitarFrutaElegida(fruta)"
             >-x- </button>
         </p>
     </li>
+    <li *ngSwitchCase="'amarillo'" 
+    class="list-group-item bg-warning"
+    >
+    <p> {{ fruta.nombre }}: {{fruta.precio}} € 
+        <button class="btn btn-danger"
+        (click)="quitarFrutaElegida(fruta)"
+        >-x- </button>
+    </p>
+    </li>
 </ul>
+<p>Tambien se podria pintar un cada caso en funcion de alguna de l as propiedades de lista del objeto</p>
