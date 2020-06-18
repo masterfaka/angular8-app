@@ -29,4 +29,6 @@ export class AppComponent {
     */
    this.mensaje=e;
   }
+  /*para pipes */
+  unTexto= "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Error, officia. ";
 }
