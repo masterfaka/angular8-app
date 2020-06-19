@@ -312,6 +312,7 @@ import { catchError } from 'rxjs/operators';
 ```
 -----------------------------------------------------
 # Rutas
+
 - nuervo modulo maybe?? aunque ya lo tengo en el project 
 - docs: https://angular.io/guide/router \\ project 'EjemplosCodigo/rutas1'
 ```javascript
@@ -346,5 +347,6 @@ export class AppRoutingModule { }
 <router-outlet></router-outlet>
 ```
 - 'AppRoutingModule' no tiene vista como tal; es mas un entrypoint para los componentes_rutas
-_specific routes should be placed above less specific routes. List routes with a static path first, followed by an empty path route, which matches the default route. The wildcard route comes last because it matches every URL and the Router selects it only if no other routes match first."_
-- 
+*_specific routes should be placed above less specific routes. List routes with a static path first, followed by an empty path route, which matches the default route. The wildcard route comes last because it matches every URL and the Router selects it only if no other routes match first."_*
+- `pathMatch: "full"|| "prefix"` usado por el algoritmo de path matching; default es prefix.
+!!ojo Wildcards

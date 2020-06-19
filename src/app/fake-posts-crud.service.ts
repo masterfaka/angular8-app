@@ -9,7 +9,7 @@ import { FakePost } from './models/fake-post';
 })
 export class fakePostsCrudService implements OnInit {
 
-  defaultUrl= "https://123jsonplaceholder.typicode.com/posts";
+  defaultUrl= "https://jsonplaceholder.typicode.com/posts";
   fakePostsList= [];
   constructor(private http: HttpClient) {
   }

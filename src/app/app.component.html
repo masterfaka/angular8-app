@@ -459,7 +459,34 @@
     </div>
   </div>
   <hr>
+<hr>
+<div class="card card-container">
+<h3>Routing Module</h3>
+<div class="container ">
+  <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit. 
+    Quidem consequatur deserunt rerum commodi dicta velit, nesciunt quo libero voluptatum, 
+    repudiandae voluptatem nam. Nostrum assumenda eaque corrupti optio vitae natus illum 
+    psum dolores aperiam. Fugit omnis maiores distinctio dolor placeat.
+    Amet ratione modi ea molestias voluptas sunt fugit saepe, cupiditate omnis.</p>
 
+ 
+  <br><hr>
+   <!-- * * *cargara las rutas dnd este este selector
+    COmo no hay ruta predefinida para home quita todo componente
+    * * * * * -->
+  <router-outlet></router-outlet>
+  <div class="d-flex justify-content-between">
+      <a class="btn btn-primary btn-sm text-white"
+        routerLink="/first-component" routerLinkActive="active">First Componente</a> 
+      <a class="btn btn-secondary btn-sm text-white"
+        routerLink="/" routerLinkActive="active">a Home(Componente padre)</a> 
+      <a class="btn btn-success btn-sm text-white"
+        routerLink="/second-component" routerLinkActive="active">Segundo Component</a> 
+
+  </div>
+ </div>
+  
+</div>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
@@ -469,4 +496,4 @@
 <!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 
-<router-outlet></router-outlet>
+

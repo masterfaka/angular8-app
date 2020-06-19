@@ -12,7 +12,9 @@ import { BindingComponent } from './binding/binding.component';
 import { Component2componentComponent } from './component2component/component2component.component';
 import { DirectivasComponent } from './directivas/directivas.component';
 import { CambiarColorDirective } from './cambiar-color.directive';
-import { MiPipeResumirPipe } from './mi-pipe-resumir.pipe';/*da fallo si no se importa DUh*/
+import { MiPipeResumirPipe } from './mi-pipe-resumir.pipe';
+import { FirstComponent } from './first/first.component';
+import { SecondComponent } from './second/second.component';/*da fallo si no se importa DUh*/
 
 @NgModule({
   /*hay que registrar cada SUB-hijo componente que eeste modulo cargue!!
@@ -23,7 +25,9 @@ import { MiPipeResumirPipe } from './mi-pipe-resumir.pipe';/*da fallo si no se i
     /*el componente cli no se autoindenta + crea una carpeta nueva*/
     Componente2Component, 
     BindingComponent, Component2componentComponent, DirectivasComponent, CambiarColorDirective,
-    MiPipeResumirPipe
+    MiPipeResumirPipe,
+    FirstComponent,
+    SecondComponent
   ],
   /* aki se importan los modulos */
   imports: [
