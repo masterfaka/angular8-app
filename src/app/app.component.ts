@@ -89,6 +89,12 @@ export class AppComponent implements OnInit{
        * completaremos el objeto, luego la lista y mostramos en pantalla
        */
       articulo.id= response.id;/**o tambien articulo['id']= response['id'] */
+      },
+      error =>{
+        //podriamos loguearlo + mensage puede se HttpResponseError o cualkier tipo
+       /* console.log("error happened!!");
+        console.log(error);
+*/
       }
     );
     //cons .splice  o unshift agregamos al principio de la lista
@@ -96,5 +102,22 @@ export class AppComponent implements OnInit{
     /**actualizamos campos de foprmulario por si keremos meter
     mas y para ello teniamos ke haberle pasado los elmentos del DOM*/
     body.value="";
+  }
+  /*borrar post*/
+  borrarPost(id: number){
+    this.sFakePosts.deletePost(id).subscribe(resp =>{
+      /**el server nos devuelve un obj vacio pero deberia de haber borrado el item
+       * para no volver a consultar hacemos la logica solo para la vista
+       */
+      /**se podria hacer con array.splice si le pasamos todo el post a la func
+       * principal, pero aki no lo hemos hecho y 
+       * podemos usar filter(que parece mas lenta)
+       */
+      this.listaActualizadaFP= this.listaActualizadaFP.filter((element) =>{
+        /**retornamos todos los elementos del array menos el que borramos por el id */
+        return element.id !== id;
+      });
+
+    });
   }
 }

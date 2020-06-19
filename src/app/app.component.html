@@ -439,7 +439,7 @@
   </div>
   <hr>
   <div class="card card-container overflow-auto">
-    <h3>POST</h3>
+    <h3>POST and DELETE</h3>
     <input type="text" placeholder="Nombre articulo" #postName/>
     <textarea placeholder="Describe yourself here..." #postBody></textarea>
     <button (click)="crearPost(postName, postBody)"
@@ -449,8 +449,11 @@
     <div class="card card-body ">
       <ul class="list-group" >
         <li *ngFor="let post of listaActualizadaFP" class="list-group-item">
+          <button class="btn btn-sm btn-danger"
+            (click)="borrarPost(post.id)">borrar</button>
           <span class="badge badge-info badge-pill">[ID: {{ post.id }}]</span>
           {{ post.title | miPipeResumir:40 }}
+          
         </li>
       </ul>
     </div>
