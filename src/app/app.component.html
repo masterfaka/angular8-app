@@ -402,19 +402,61 @@
 <hr><hr>
 <h2>Directivas</h2>
 <app-directivas></app-directivas>
-
 <hr>
   <h2>Pipes</h2>
   <div class="card card-container">
     <div class="card p-5" [ngStyle]="{'width': '90%'}">
     <div class="card-body">
       <p class="card-text">
-        <em> ESTE texto es muy largo y solo quiero recortarlo y mostrarlo</em><br>
-         {{ unTexto| miPipeResumir:10 }}</p>
+        <em class="text-info"> ESTE texto es muy largo y solo quiero recortarlo y mostrarlo
+          en funcion de un valor predefinido(al azar).
+        </em><br>
+         {{ unTexto| miPipeResumir:50 }}</p>
       <a class="card-link"href="#">aqui_mismo</a>
     </div>  
     </div>
+
   </div>
+ 
+  <h2>Servicio Fake Posts Api || CRUD </h2>
+  <div class="card card-container overflow-auto">
+    <h3>GET</h3>
+    <p class="card-text">Lista reducida a 10 items</p>
+    <div class="card card-body h-25 d-inline-block">
+      <ul class="list-group" #listaposts>
+        <li *ngFor="let post of listaFakePosts| slice:sliceRange.min : sliceRange.max" class="list-group-item">
+          <span class="badge badge-primary badge-pill">[ID: {{ post.id }}]</span>
+          {{ post.title | miPipeResumir:30 }}
+        </li>
+      </ul>
+    </div>
+    <em>logicamente deshabilitamas ir para atras si estamos en la pag1</em>
+    <button (click)="paginarListaAtras()"
+        class="btn btn-warning w-25"
+        [disabled]="sliceRange.min < 10"><< ---</button>
+    <button (click)="paginarListaAlante()"
+    class="btn btn-success w-25">+++ >></button>
+  </div>
+  <hr>
+  <div class="card card-container overflow-auto">
+    <h3>POST</h3>
+    <input type="text" placeholder="Nombre articulo" #postName/>
+    <textarea placeholder="Describe yourself here..." #postBody></textarea>
+    <button (click)="crearPost(postName, postBody)"
+    class="btn btn-primary ">Publicar articulo</button>
+    <p class="card-text">lista actualizada de fake posts; van a tener siempre el mismo id por culpa de la API:
+       habria que mandarle varios derepente</p>
+    <div class="card card-body ">
+      <ul class="list-group" >
+        <li *ngFor="let post of listaActualizadaFP" class="list-group-item">
+          <span class="badge badge-info badge-pill">[ID: {{ post.id }}]</span>
+          {{ post.title | miPipeResumir:40 }}
+        </li>
+      </ul>
+    </div>
+  </div>
+  <hr>
+
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

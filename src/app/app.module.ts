@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import {FormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 
@@ -24,11 +25,14 @@ import { MiPipeResumirPipe } from './mi-pipe-resumir.pipe';/*da fallo si no se i
     BindingComponent, Component2componentComponent, DirectivasComponent, CambiarColorDirective,
     MiPipeResumirPipe
   ],
+  /* aki se importan los modulos */
   imports: [
     BrowserModule,
     AppRoutingModule, 
-    FormsModule
+    FormsModule,
+    HttpClientModule
   ],
+  /**en providers se injectan servicios a nivel de modulo */
   providers: [],
   bootstrap: [AppComponent]
 })
