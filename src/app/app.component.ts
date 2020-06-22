@@ -120,4 +120,17 @@ export class AppComponent implements OnInit{
 
     });
   }
+  /***
+   * FORMULARIO*************************/
+  form1Usuario={
+    nombre: "pepito",
+    telefono: "123456",
+    mail:"algo@ejemplo.org", 
+    comentario:"sin Coments"
+  };
+  onSubmit(miform1){
+    console.log(miform1);
+    /**aqui tenemos los datos en json y podemos usar 
+     * un servicio para hacerle post al server */
+  }
 }

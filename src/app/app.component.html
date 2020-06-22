@@ -487,6 +487,74 @@
  </div>
   
 </div>
+  <div class="card card-container">
+    <h3>Formulario1 TDF</h3>
+    <div class="container ">
+      <ul>
+        <li>
+          /*no nos interesa el action todavia pero si un nopmbre */
+          [para que la directiva ngForm legue a los calores de los inputs 
+          necesitamos acceder a sus valores== +ngModel== databinding]
+        </li>
+      </ul>
+        <form #miform1="ngForm" (ngSubmit)="onSubmit(miform1)">
+          <span class="text-info">{{ miform1.value | json }}</span>
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+          <!---Mucho ojo.. necesitariamos un bindeo del lado del template para acceder a su valor
+          de input por eso añadimos la directiva relacionando 
+          con template variable  #nombre 
+               OJO aki dependiendo de como se ponga el ng model podremos ono imprimir el classname
+              -->
+     
+            <input 
+            [(ngModel)]="form1Usuario.nombre"
+            #nombre 
+            class="form-control"type="text" name="nombre" id="nombre"/>
+          </div>
+          <span class="text-primary">{{ nombre.className }}</span>
+          <div class="form-group">
+            <label for="mail">Mail</label>
+            <!---Mucho ojo..aki bindeamos a ngModel  #nombre 
+              peta con un error pero SO dice que es por combinar forms reactivos con no
+          -->
+            <input  
+            required
+            minlength="5"
+            [class.is-invalid]="mail.invalid&&mail.touched"
+            #mail="ngModel"
+          
+            [(ngModel)]="form1Usuario.mail" class="form-control"type="text" 
+            name="mail" id="mail"/>
+            <div *ngIf="mail.errors &&(mail.touched || mail.invalid)">errores aki
+              <small class="text-danger"
+              *ngIf="mail.errors.required"
+              >Requerido!!! no puede ir vacio!!!</small>
+              <small class="text-danger"
+              *ngIf="mail.errors.minlength"
+              >Demasiado corto!!!!Minimo5!</small>
+            </div>
+                        <span class="text-warning">{{ mail.pristine }}//
+              {{ mail.touched }}//{{ mail.valid }}//{{ mail.invalid }}</span>
+          </div>
+          <div class="form-group">
+            <label for="comentario">Mensaje</label>
+            <textarea
+            placeholder="{{form1Usuario.comentario}}"
+            ngModel  class="form-control" name="comentario" id="comentario" cols="25" rows="4"></textarea>
+          </div>
+          <div class="text-center">
+            <input type="checkbox"
+            ngModel
+            name="subscipcionMail">Quiero feed RSS
+            <button 
+            [disabled]="!miform1.valid"
+            type="submit" class="btn btn-success w-50  text-center">Enviar</button>
+          </div>
+        </form>
+        <hr>
+    </div>
+  </div>
 </div>
 <!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
 <!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->

@@ -1,0 +1,48 @@
+<div class="container"><br/>
+    <form #usuarioForm="ngForm" (ngSubmit)="onSubmit(usuarioForm)">
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input 
+            [class.is-invalid]="nombre.invalid && nombre.touched"
+            required
+            #nombre = "ngModel" 
+            [(ngModel)]="usuario.nombre"
+            name="nombre"
+            type="text" 
+            id="nombre"
+            class="form-control">
+            <small class ="text-danger" *ngIf="nombre.invalid && nombre.touched">Nombre es requerido</small>
+        </div>
+        <div class="form-group">
+            <input type="checkbox" ngModel name="suscribirse">Deseo recibir email
+        </div>
+        <div class="form-group">
+            <label for="phone">Phone:</label>
+            <input 
+            required
+            minlength="9"
+            [class.is-invalid]="phone.invalid && phone.touched"
+            #phone = "ngModel"
+            [(ngModel)]="usuario.phone"
+            name="phone" 
+            type="text" 
+            id="phone" 
+            class="form-control">
+            <div *ngIf="phone.errors && (phone.invalid || phone.touched)">
+                <small class="text-danger" *ngIf="phone.errors.required">El phone es requerido</small>
+                <small class="text-danger" *ngIf="phone.errors.minlength">El phone necesita tener 9 dígitos</small>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="mensaje">Mensaje:</label>
+            <textarea 
+            [(ngModel)]="usuario.mensaje" 
+            name="mensaje" 
+            id="mensaje" 
+            cols="30" 
+            rows="10" 
+            class="form-control"></textarea>        
+        </div>
+        <button class="btn btn-primary" [disabled]="!usuarioForm.valid">Enviar</button>
+    </form>
+</div>

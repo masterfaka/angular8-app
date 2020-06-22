@@ -14,7 +14,8 @@ import { DirectivasComponent } from './directivas/directivas.component';
 import { CambiarColorDirective } from './cambiar-color.directive';
 import { MiPipeResumirPipe } from './mi-pipe-resumir.pipe';
 import { FirstComponent } from './first/first.component';
-import { SecondComponent } from './second/second.component';/*da fallo si no se importa DUh*/
+import { SecondComponent } from './second/second.component';
+import { Formu1Component } from './formu1/formu1.component';/*da fallo si no se importa DUh*/
 
 @NgModule({
   /*hay que registrar cada SUB-hijo componente que eeste modulo cargue!!
@@ -27,7 +28,8 @@ import { SecondComponent } from './second/second.component';/*da fallo si no se 
     BindingComponent, Component2componentComponent, DirectivasComponent, CambiarColorDirective,
     MiPipeResumirPipe,
     FirstComponent,
-    SecondComponent
+    SecondComponent,
+    Formu1Component
   ],
   /* aki se importan los modulos */
   imports: [

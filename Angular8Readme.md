@@ -409,3 +409,74 @@ se suele usar para comvertir un compotne en subrutas
 })
 ```
 - *hay que `ng serve` otra vez para ver los cambios en las sub rutas*
+
+--------------------------------------------------
+# Formularios TDF(templateDriven Forms)
+- validaciones del lado de la vista vs ``REACTIVEForms`` qu ese validan desde el lado del componente
+- necesitamos los labels y los id+ name + importar FromsModule + templateVariable(#)= directiva
+- `#formulario1="ngForm"` tal cual en el tag del form
+```html
+        <form #miform1="ngForm">
+          /*OJO este pipe de JSON :D
+          Como esta con 2waydatabinding segun escribimos muestra
+          */
+          {{ miform1.value | json }}
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input ngModel class="form-control"type="text" name="nombre" id="nombre"/>
+          </div>
+          <hr>
+        </form >
+```
+- para mostrar info en el formulario al cargarlo pero ya tenemos el data binding hecho ya pero nos faltaria bindear con el objeto el el lado de TS: 
+```html
+          <div class="form-group">
+            <label for="nombre">Nombre</label>
+            <input [(ngModel)]="usuario.nombre" class="form-control"type="text" name="nombre" id="nombre"/>
+          </div>
+```
+- /*se agregan clases agregadas por defecto en cada campo del los forms(pares)*/
+- `ng-touched`: valor que hay en el campo ha sido *tocado(click)* por el usuario; no: `ng-untouched`
+- `ng-dirty`: cambio valor -- `ng-pristine`: valor intacto
+- `ng-valid` : default; valida field -- `ng-invalid` pej con html `required`
+- *Listar clases de un elemento html(#elementName name="elementName"):* `{{ elementName.className }}`; si bindeamos a ``ngModel`` es decir`#nombreElemento="ngModel"` `{{ elementName.pristine/.valid }}` devolvera booleando porque ya estariamos usando las props de la directiva.
+## Mensajes de error con class Binding
+- `[class.is-invalid]="mail.invalid"` se bindea la clase de bootstap ya predefinida `is-invalid`
+- `minlength="9"` tamaño minimo
+- para mostrar mensajes de error:misma condicion + tag small danger
+```html
+/***mostramos un elemento con la directiva *ngIf*/
+            <input  
+            [class.is-invalid]="mail.invalid&&mail.touched"
+            #mail="ngModel"
+            required
+            [(ngModel)]="form1Usuario.mail" class="form-control"type="text" 
+            name="mail" id="mail"/>
+            <small class="text-danger"
+              *ngIf="mail.invalid&&mail.touched"
+              >Nombre-Invalido!!!!!</small>
+```
+```html
+            <div *ngIf="mail.errors &&(mail.touched || mail.invalid)">errores aki
+              <small class="text-danger"
+              *ngIf="mail.errors.required"
+              >Requerido!!! no puede ir vacio!!!</small>
+              <small class="text-danger"
+              *ngIf="mail.errors.minlength"
+              >Demasiado corto!!!!Minimo5!</small>
+            </div>
+```
+## Enviar datos (ngSubmit)
+```html
+  <form #miform1="ngForm" (ngSubmit)="miform1">
+    <button 
+            [disabled]="!miform1.valid"
+            type="submit" class="btn btn-success w-50 ">Enviar</button>
+```
+```javascript
+  onSubmit(formulario){
+    console.log(formulario);
+        /**aqui tenemos los datos en json y podemos usar 
+     * un servicio para hacerle post al server */
+  }
+```
