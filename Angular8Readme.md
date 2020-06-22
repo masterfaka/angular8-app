@@ -324,9 +324,13 @@ import { Routes, RouterModule } from '@angular/router'; // CLI imports router
 const routes: Routes = [
   { path: 'first-component', component: FirstComponent },
   { path: 'second-component', component: SecondComponent },
+  { path: '',   redirectTo: '/first-component', pathMatch: 'full' }, 
+  // redirect to `first-component` or home
+  { path: '**', component: PageNotFoundComponent }, 
 ];
 
 // configures NgModule imports and exports
+// puede ir en el import a nivel de app aki lo estamos usando en el componente AppComponent
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
@@ -350,3 +354,58 @@ export class AppRoutingModule { }
 *_specific routes should be placed above less specific routes. List routes with a static path first, followed by an empty path route, which matches the default route. The wildcard route comes last because it matches every URL and the Router selects it only if no other routes match first."_*
 - `pathMatch: "full"|| "prefix"` usado por el algoritmo de path matching; default es prefix.
 !!ojo Wildcards
+- `{ path: "**", component:"NotFound404" }` al final; ultima ruta
+- `routerLink` *NO* recarga lapagina sino solo el componente y la ruta en el explorer para links
+- si keremos *pasar paramentros* `[routerLink]="["/usuarios", 123]"`
+-  varios parametros `[routerLink]="["/usuarios", 123, 2ndoparam]"` para la ruta path:"usuarios/:id/:2ndoparam"
+- `routerLinkActive="active"` angular se encargara de activar la clase active de boostrap en el link-ruta que estemos __dinamicamente__
+- 'ActivatedRoute' se injecta en el componente-ruta.ts  
+```javascript
+import { ActivatedRoute } from '@angular/router';
+  paramID: number;
+  constructor(private route: ActivatedRoute) { }
+  /**route.paramMap devuelve un Observable; .subscribe*/
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params =>{
+      console.log(params);
+      /** en params. keys son los parametros de la ruta pej :id del path*/
+      /*para su valor hacemos y ya lo podriamos mostrar en la vista
+      */
+      this.paramID=params.get('id');
+    });
+  }
+```
+- Otra manera de pasar varios parametros por *GET*:
+ `a href="#" [queryParams]="{ first:"test", second: usr.id }"` produciria un url:`#/?first=test&second=123`
+ - se recuperan injectando route+ `this.route.queryParams.subscribe(params =>{
+      console.log(params);
+    });`
+- con `.snapshot`: `this.route.snapshot.queryParamsMap.get("first");` asumiendo que sabemos los id de lo que viene por *GET* _DUH_
+
+--------------------------------------------------------------------------------
+```
+ng g c --flat
+/*da igual si componente o modulo solo creara el .ts
+se suele usar para comvertir un compotne en subrutas
+- recordar.forChild
+*/
+```
+-----------------------------------------------------------------------
+# lazy Loading + subrutas
+- para no cargar modulo/componente al incio de la app ; solo cuando es invocado
+- *+Performance* usando en combo con las rutas/sub-rutas ejemplo en"ejemploCodigo/lazy-loading+subrutas"
+- `loadChildren:"./login/login.module#LoginModule"` y ahi se vuelve a declarar coinst routes="subrutas"
+- `{ path:" ", children:[{path:" ", component: sub-rutaIndex }, { path:"subruta2",sub-ruta2 }] }`
+- para _registrar las rutas_ desde login.module ojo forchild solo app-routing module lleva for root porke esta en el componente principal de la app
+```javascript
+@NgModule({
+  declarations: [],
+  imports: [
+    CommonModule,
+    RouterModule.forChild(routes)
+  ],
+  exports: [RouterModule]
+
+})
+```
+- *hay que `ng serve` otra vez para ver los cambios en las sub rutas*

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-first',
@@ -7,9 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FirstComponent implements OnInit {
 
-  constructor() { }
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    /**devuelve un observable y hay que hacerle .subscribe */
+    this.route.paramMap.subscribe(params =>{
+      console.log(params);
+    });
   }
 
 }
