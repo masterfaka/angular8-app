@@ -534,8 +534,9 @@
               *ngIf="mail.errors.minlength"
               >Demasiado corto!!!!Minimo5!</small>
             </div>
-                        <span class="text-warning">{{ mail.pristine }}//
-              {{ mail.touched }}//{{ mail.valid }}//{{ mail.invalid }}</span>
+                        <!--span class="text-warning">{{ mail.pristine }}//
+              {{ mail.touched }}//{{ mail.valid }}//{{ mail.invalid }}</span
+            esto peta en consola pero muestra los valors realtime-->
           </div>
           <div class="form-group">
             <label for="comentario">Mensaje</label>
@@ -544,15 +545,108 @@
             ngModel  class="form-control" name="comentario" id="comentario" cols="25" rows="4"></textarea>
           </div>
           <div class="text-center">
-            <input type="checkbox"
+            <div class="form-group">
+              <input type="checkbox"
             ngModel
             name="subscipcionMail">Quiero feed RSS
+            
+            </div>
             <button 
             [disabled]="!miform1.valid"
             type="submit" class="btn btn-success w-50  text-center">Enviar</button>
           </div>
         </form>
-        <hr>
+        <hr><br>
+
+    </div>
+  </div>
+  <hr>
+  <div class="card card-container">
+    <h3>directiva [formGroup]="miFormulario2"</h3>
+    <div class="container ">
+      <ul>
+        <li>
+          <code>formControlName</code>
+        </li>
+
+      </ul>
+        <form [formGroup]="miFormulario2" >
+          
+          nombre:<input class="form-control"
+            type="text"
+            formControlName="nombreF2"
+            [class.is-invalid]="miFormulario2.get('nombreF2').touched && miFormulario2.get('nombreF2').invalid"
+            
+          />
+          <br>
+          pass (hecho con getter + custom validation):<input class="form-control"
+            type="password"
+            formControlName="passF2"
+            [class.is-invalid]="passF2.touched &&passF2.invalid"
+            (keyup)="mostrarElement()"
+
+          />
+          <div *ngIf="passF2.touched &&passF2.invalid">
+            <small class="text-danger"
+            *ngIf="passF2.errors.required"
+            >Requerido!!! no puede ir vacio!!!</small>
+            <small class="text-danger"
+            *ngIf="passF2.errors.minlength"
+            >Demasiado corto!!!!Minimo {{ passF2.errors.minlength.requiredLength }}!: 
+            (  {{ passF2.errors.minlength.actualLength }}/ {{ passF2.errors.minlength.requiredLength }} )</small>
+            <small class="text-danger"
+            *ngIf="passF2.errors.sinBlackSpaces"
+            >Sin espacios en blanco (Validacion custom)!</small>
+          </div>
+          {{ miFormulario2.value | json }} <br>  
+          <div class="text-center">
+            <button [disabled]="!miform1.valid" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
+    </div>
+    <hr>
+  <div class="card card-container">
+    <h3>Formulario con form builder</h3>
+    <div class="container ">
+      <ul>
+        <li>
+          <code>formControlName</code>
+        </li>
+
+      </ul>
+        <form [formGroup]="miFormulario3" >
+          
+          nombre:<input class="form-control"
+            type="text"
+            formControlName="nombreF3"
+            [class.is-invalid]="miFormulario3.get('nombreF3').touched && miFormulario3.get('nombreF3').invalid"
+            
+          />
+          <br>
+          pass (hecho con getter + custom validation):<input class="form-control"
+            type="password"
+            formControlName="passF3"
+            [class.is-invalid]="passF3.touched &&passF2.invalid"
+            (keyup)="mostrarElement()"
+
+          />
+          <div *ngIf="passF3.touched &&passF3.invalid">
+            <small class="text-danger"
+            *ngIf="passF3.errors.required"
+            >Requerido!!! no puede ir vacio!!!</small>
+            <small class="text-danger"
+            *ngIf="passF3.errors.minlength"
+            >Demasiado corto!!!!Minimo {{ passF3.errors.minlength.requiredLength }}!: 
+            (  {{ passF3.errors.minlength.actualLength }}/ {{ passF3.errors.minlength.requiredLength }} )</small>
+            <small class="text-danger"
+            *ngIf="passF3.errors.sinBlackSpaces"
+            >Sin espacios en blanco (Validacion custom)!</small>
+          </div>
+          {{ miFormulario3.value | json }} <br>  
+          <div class="text-center">
+            <button [disabled]="!miform1.valid" class="btn btn-primary">Submit</button>
+          </div>
+        </form>
     </div>
   </div>
 </div>

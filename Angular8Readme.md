@@ -473,6 +473,7 @@ se suele usar para comvertir un compotne en subrutas
             [disabled]="!miform1.valid"
             type="submit" class="btn btn-success w-50 ">Enviar</button>
 ```
+- .valid depende solo del required de momento
 ```javascript
   onSubmit(formulario){
     console.log(formulario);
@@ -480,3 +481,59 @@ se suele usar para comvertir un compotne en subrutas
      * un servicio para hacerle post al server */
   }
 ```
+## importar modulo en el modulo que estemos usado para que funcione formgroup !!ReactiveFormsModule 
+- '[formGroup]' ,'formControlName', *IMPORTANTE:* importar import { FormGroup, FormControl, Validators } from "@angular/forms";`
+- *Getters* para los formControlName `get` para typescript;_ por convencion llamar igual que la propiedad_
+```javascript
+  get passF2(){
+    return this.miFormulario2.get('passF2');
+  }
+```
+- multimples validators/ validacion avanzada : array de validadores + *ngIf validaciones
+- *Ojo* trick: al trabajar con un elemento es pueno velro en consola: (keyup)="funcionCOnsolelog this.form2.get('ele')" y se veran las propiedades. *_incluso los validadores_* de donde sacamos pej errors.minlength.requiredLength *en minusculas/mayus OJO*
+- *Creando validador:* a mano. OJO static; se invoca con `Form2Validator.sinBlackSpaces`
+```javascript
+form2.validators.ts
+import { AbstractControl, ValidationErrors } from '@angular/forms';
+
+export class Form2Validator{
+    mireglavalidacion(control: AbstractControl): ValidationErrors{
+        /*ya existe pero para ver lo que podemos hacer pej min length  a pincho*/
+        if(control.value.length!== 5){
+            /*retorna un obj tipo validation error mirar docu; aqui simulamos min_lentgh */
+            return {
+                minlength:{
+                    requiredLenght: 5,
+                    actualLength: control.value.length
+                }
+            };
+        }
+    }
+    static sinBlackSpaces(control: AbstractControl): ValidationErrors | null{
+        if(control.value.indexOf(" ")!== -1){
+            return {
+                noEspacioEnBlank: true
+            }
+        }
+        return null;
+    }
+}
+```
+- *FormBuilder* OJo syntax array y dependency injection
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+--------------------------------------------------------------
+# completar: APIFetch segun bluweb+ typesctipt ES6 sh-cuts

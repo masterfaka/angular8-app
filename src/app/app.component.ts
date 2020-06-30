@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Servicio1Service } from './servicio1.service';
 import { fakePostsCrudService } from './fake-posts-crud.service';
 import { FakePost } from './models/fake-post';
+import { FormGroup, FormControl, Validators, FormBuilder } from "@angular/forms";
+import { Form2Validator } from './form2.validators';
 
 /* decorador */
 @Component({
@@ -47,7 +49,8 @@ export class AppComponent implements OnInit{
   */
   constructor(
     private servicio1: Servicio1Service,
-    private sFakePosts: fakePostsCrudService
+    private sFakePosts: fakePostsCrudService, 
+    private _fb: FormBuilder
     ){
     this.resultadosServicio1 = servicio1.getDatosFakeUsuario()
   }
@@ -130,7 +133,44 @@ export class AppComponent implements OnInit{
   };
   onSubmit(miform1){
     console.log(miform1);
-    /**aqui tenemos los datos en json y podemos usar 
-     * un servicio para hacerle post al server */
+  }
+  /**Form2
+   * da problemas si no declaramos del lado del componente 
+   * el nombre del fomrulario  bindeado?¿?
+   * hay que importar import { FormGroup } from "@angular/forms"; + incializarlo con 1 obj
+   */
+  miFormulario2= new FormGroup({
+    /*primero los controles: campos; se usa el mismo nombre que 
+    le hemos dado con fomrControlName 
+    se puede inicializar a algun valor*/
+    /**para valios validadores se usa un array */
+    nombreF2: new FormControl('', Validators.required),
+    passF2: new FormControl('', [
+      Validators.required,
+      Validators.minLength(3),
+      Form2Validator.sinBlackSpaces
+    ])
+  });
+  get passF2(){
+    return this.miFormulario2.get('passF2');
+  }
+  mostrarElement(){
+    console.log(this.miFormulario2.get('passF2'));
+  }
+  /**from3 con formBuilder */
+  miFormulario3= this._fb.group({
+    /*primero los controles: campos; se usa el mismo nombre que 
+    le hemos dado con fomrControlName 
+    se puede inicializar a algun valor*/
+    /**para valios validadores se usa un array */
+    nombreF3: ['', Validators.required],
+    passF3: ['', [
+      Validators.required,
+      Validators.minLength(3),
+      Form2Validator.sinBlackSpaces
+    ]]
+  });
+  get passF3(){
+    return this.miFormulario3.get('passF3');
   }
 }
