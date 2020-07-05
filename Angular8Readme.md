@@ -519,21 +519,92 @@ export class Form2Validator{
     }
 }
 ```
-- *FormBuilder* OJo syntax array y dependency injection
+- *FormBuilder* OJo syntax array y dependency injection (check /formulario2-reactive-forms)
 
+-------------------------------------------------------
+# Content Projection + Element // Component Reference
+- pasabamos info de un componente padre-hijo*(@Input)* e a la inversa con *(@Output)*,
+para enviar elementos(Html) tambien podemos: `<ng-content>` en el hijo;
+- Slot Property Projection envia determinado elemento *solamente*:
+```html
+<ng-content select="h1"></ng-content>  
+<ng-content select="#miId"></ng-content>  
+<ng-content select=".miclase"></ng-content>  
+<ng-content select="micomponente"></ng-content>  
 
+```
+-----------------------------------------------------
+- cada **ciclo de vida** de un componente, es una **Interfaz**
+------------------------------------------------------
+# referencia a elementos `@ViewChild @ViewChildren , @contentChild @ContentChildren, QueryList`
+## y sus respectivos ciclos de vida asoc. ngAfterViewInit, ngAfterContentInit+ ChangeDetectorRef
+- ``@ViewChild ``+`ngAfterViewInit()` nos permite tener acceso a  un det componenteHijo (en el ComponentePadre)
+- si queremos tener acceso al elemento antes de `ngAfterViewInit` (static:false by default)se usa:
+```javascript
+@ViewChild(ComponenteHijoComponent, {static: true}) componenteHijo: ComponenteHijoComponent;
+```
+- Si cambiamos una determinada propiedad del hijo(en `ngAfterViewInit`), injectamos `ChangeDetectorRef` _peta la consola sino_
+```javascript
+ contructor(private cd: ChangeDetectorRef{} /*desde @angular/core*/
+```
+- `@ViewChildren ` es para varios a la vez(pej iterable)
+```javascript
+@ViewChildren(ComponenteHijoComponent, {static: true}) listaComponenteHijo: QueryList<ComponenteHijoComponent>;
+/*data is in _results de queryList(check console)*/
+```
+## ContentChild se usa en conjunto con la idea de Content projecction, para manipular elementos del DOM
+- Es el `<componentePadre-container>`  el que contiene los `<compHijo>` (pero es el hijo el que *proyecta* los elemts definidos en el padre)
 
+| @ViewChild/ @ViewChildren | @ContentChild/Children ||
+| -- | -- | -- |
+| recupera Componente.propiedad | recupera elemento del Dom para content projection with `<ng-content select="micomponente"></ng-content>  `  | 
+| `ngAfterViewInit()` |`ngAfterContentInit()` |
+| no olvidar `ChangeDetectorRef` | Contenido 2-2 |
+| `, {static: true}` hace que este disponible nbo solo en su ciclo de vida sin tmbn en *ngOnInit()* |
 
+>It is used to access Child Component in the Parent Component.
+Any directive, component, and element which is part of component template is accessed as ViewChild. Whereas, any element or component which is projected inside is accessed as ContentChild.
 
+![content vs view ](https://jaxenter.com/wp-content/uploads/2018/03/viewchild-12.png)
 
+Es decir: ``@ContentChild and @ContentChildren ``queries will return directives existing inside the ``<ng-content></ng-content>`` element of your view, whereas ``@ViewChild and @ViewChildren`` only look at elements that are on your view template directly.
 
+- check `/referencias-a-componentes`
 
+----------------------------------------------------------------
+# ``BehaviorSubject`` + Comunicacion avanzada componentes(pej de componente nieto a componente ajenoresumen)
+- la diferencia entre BehaviorSubject y Subjec sk el primero se le puede especificar valor default de inicializacion que **Sobreescribe** el valor incial del componente
+- Se podria usar **redux** pero vamos a usar el subject design pattern haciendo un servicio observer
+- RxJs contiene la comunicacion entre componentes
 
+### el flujo:
+Con un valor del componente, se lo pasamos al servicio injectado, que contiene un behaviorSubject.asObservable(), alque le llega el valor.
+a ese observable nos suscribimos desde el componente donde necesitamos hacer llegar el valor(A traves del mismo servicio injectado a este respectivo componentene)y automaticamente nos pasa/pinta el valor
+```javascript
+  private mensajeBehaviorSubject = new BehaviorSubject<string>('Este es un default');
+  //private mensajeBehaviorSubject = new Subject<string>();
+  /** por convencion si es un observable se usa $ al final*/
+  mensajeActual$ = this.mensajeBehaviorSubject.asObservable();
+  /*al suscribirnos al observable seremos insta notificados al primer cambio*/
+  /**pasar valor al observable*/
+  cambiarMensaje(mensaje : string){
+    /*con .next() es kien notifica al observable del cambio*/
+    this.mensajeBehaviorSubject.next(mensaje);
+  }
+```
+```javascript
+/*para recibir el valor injectamos servicio !!!!OJO
+ nos suscribimos al observable + func flecha*/
+/*sabemos ke le emos pasado un string y eso recibiremos*/
+  mensaje : string = 'Hola Mundo';
+  constructor(private dataService : DataService) { }
 
-
-
-
-
-
+  ngOnInit() {
+    this.dataService.mensajeActual$.subscribe(res => {
+        this.mensaje = res;
+    });
+  }
+```
+- ver `/EjemplosCodigo/SubjectDesignpatternObservable` 
 --------------------------------------------------------------
-# completar: APIFetch segun bluweb+ typesctipt ES6 sh-cuts
+# completar: APIFetch segun bluweb+ typescript ES6 sh-cuts
